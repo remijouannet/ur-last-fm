@@ -84,5 +84,6 @@ func main() {
     getAllRecentTracks("hoodlums36")
 
     //userGetInfo("hoodlums36")
-    //userGetRecentTracks(P{"user" : "hoodlums36", "limit": "5"})
+    //userGetRecentTracks(P{"user" : "hoodlums36", "limit": "1", "extended": "0"})
+    //userGetRecentTracks(P{"user" : "hoodlums36", "limit": "1", "extended": "1"})
 }
