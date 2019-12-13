@@ -48,7 +48,7 @@ func httpGet(params url.Values) (body []byte){
 
     if debug {
         for key, param := range params {
-            logDebug.Printf("Param: %s %s\n", key, param)
+            logDebug.Printf("Param: %s %s\n", key, param[0])
         }
     }
 
@@ -65,13 +65,17 @@ func httpGet(params url.Values) (body []byte){
 	if err != nil {
 		return
 	}
-    logInfo.Printf("Status Code : %v\n", res.StatusCode)
-    logInfo.Printf("Status : %s\n", res.Status)
+
+    if debug {
+        logDebug.Printf("Status Code : %v\n", res.StatusCode)
+        logDebug.Printf("Status : %s\n", res.Status)
+    }
+
 	body, err = ioutil.ReadAll(res.Body)
 
-    json.Indent(&JSON, body, "", "\t")
-    logInfo.Printf("Body : %d\n", len(JSON.Bytes()))
     if debug {
+        json.Indent(&JSON, body, "", "\t")
+        logDebug.Printf("Body : %d\n", len(JSON.Bytes()))
         logDebug.Printf("Body : %s\n", string(JSON.Bytes()))
     }
 
@@ -96,13 +100,17 @@ func httpPost(params url.Values) (body []byte){
 	if err != nil {
 		return
 	}
-    logInfo.Printf("Status Code : %v\n", res.StatusCode)
-    logInfo.Printf("Status : %s\n", res.Status)
+
+    if debug {
+        logDebug.Printf("Status Code : %v\n", res.StatusCode)
+        logDebug.Printf("Status : %s\n", res.Status)
+    }
+
 	body, err = ioutil.ReadAll(res.Body)
 
-    json.Indent(&JSON, body, "", "\t")
-    logInfo.Printf("Body : %d\n", len(JSON.Bytes()))
     if debug {
+        json.Indent(&JSON, body, "", "\t")
+        logDebug.Printf("Body : %d\n", len(JSON.Bytes()))
         logDebug.Printf("Body : %s\n", string(JSON.Bytes()))
     }
 

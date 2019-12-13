@@ -7,33 +7,38 @@ import (
 type P map[string]string
 
 func authGetMobileSession(params P) []byte{
-    logInfo.Print("Method : authGetMobileSession\n")
-
+    if debug {
+        logDebug.Print("Method : authGetMobileSession\n")
+    }
     urlParams := url.Values{}
 	urlParams.Add("method", "auth.getMobileSession")
 	urlParams.Add("api_key", token)
     for key, param := range params {
-        urlParams.Add(key, string(param[0]))
+        urlParams.Add(key, string(param))
     }
 
     return httpPost(urlParams)
 }
 
 func userGetInfo(params P) []byte{
-    logInfo.Print("Method : userGetInfo\n")
+    if debug {
+        logDebug.Print("Method : userGetInfo\n")
+    }
 
     urlParams := url.Values{}
 	urlParams.Add("method", "user.getInfo")
 	urlParams.Add("api_key", token)
     for key, param := range params {
-        urlParams.Add(key, string(param[0]))
+        urlParams.Add(key, string(param))
     }
 
     return httpGet(urlParams)
 }
 
 func userGetRecentTracks(params P) []byte{
-    logInfo.Print("Method : userGetRecentTracks\n")
+    if debug {
+        logDebug.Print("Method : userGetRecentTracks\n")
+    }
 
     if _, ok := params["limit"]; ok == false {
         params["limit"] = "5"
@@ -43,7 +48,7 @@ func userGetRecentTracks(params P) []byte{
 	urlParams.Add("method", "user.getRecentTracks")
 	urlParams.Add("api_key", token)
     for key, param := range params {
-        urlParams.Add(key, string(param[0]))
+        urlParams.Add(key, string(param))
     }
 
     return httpGet(urlParams)
