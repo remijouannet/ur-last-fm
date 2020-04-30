@@ -1,15 +1,15 @@
 package main
 
 import (
-    "io/ioutil"
-    "net/http"
+	"bytes"
+	"crypto/md5"
+	"encoding/hex"
+	"encoding/json"
+	"io/ioutil"
+	"net/http"
 	"net/url"
-    "encoding/json"
-    "encoding/hex"
-    "bytes"
-    "crypto/md5"
-    "sort"
-    "strings"
+	"sort"
+	"strings"
 )
 
 const (
@@ -18,42 +18,42 @@ const (
 )
 
 func MD5Hash(urlParams url.Values) string {
-    var text string;
-    keys := make([]string, 0, len(urlParams))
+	var text string
+	keys := make([]string, 0, len(urlParams))
 
-    for k := range urlParams {
-        keys = append(keys, k)
-    }
+	for k := range urlParams {
+		keys = append(keys, k)
+	}
 
-    sort.Strings(keys)
+	sort.Strings(keys)
 
-    for _, k := range keys {
-        text = text + k + urlParams[k][0]
-        if debug {
-            logDebug.Printf("Param: %s %s\n", k, urlParams[k][0])
-        }
-    }
+	for _, k := range keys {
+		text = text + k + urlParams[k][0]
+		if debug {
+			logDebug.Printf("Param: %s %s\n", k, urlParams[k][0])
+		}
+	}
 
-    text = text + secret
+	text = text + secret
 
-    hasher := md5.New()
-    hasher.Write([]byte(text))
-    return hex.EncodeToString(hasher.Sum(nil))
+	hasher := md5.New()
+	hasher.Write([]byte(text))
+	return hex.EncodeToString(hasher.Sum(nil))
 }
 
-func httpGet(params url.Values) (body []byte){
-    var JSON bytes.Buffer
+func httpGet(params url.Values) (body []byte) {
+	var JSON bytes.Buffer
 
 	params.Add("format", "json")
 
-    if debug {
-        for key, param := range params {
-            logDebug.Printf("Param: %s %s\n", key, param[0])
-        }
-    }
+	if debug {
+		for key, param := range params {
+			logDebug.Printf("Param: %s %s\n", key, param[0])
+		}
+	}
 
 	p := params.Encode()
-    uri := UriApiSecBase + "?" + p
+	uri := UriApiSecBase + "?" + p
 
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", uri, nil)
@@ -66,29 +66,29 @@ func httpGet(params url.Values) (body []byte){
 		return
 	}
 
-    if debug {
-        logDebug.Printf("Status Code : %v\n", res.StatusCode)
-        logDebug.Printf("Status : %s\n", res.Status)
-    }
+	if debug {
+		logDebug.Printf("Status Code : %v\n", res.StatusCode)
+		logDebug.Printf("Status : %s\n", res.Status)
+	}
 
 	body, err = ioutil.ReadAll(res.Body)
 
-    if debug {
-        json.Indent(&JSON, body, "", "\t")
-        logDebug.Printf("Body : %d\n", len(JSON.Bytes()))
-        logDebug.Printf("Body : %s\n", string(JSON.Bytes()))
-    }
+	if debug {
+		json.Indent(&JSON, body, "", "\t")
+		logDebug.Printf("Body : %d\n", len(JSON.Bytes()))
+		logDebug.Printf("Body : %s\n", string(JSON.Bytes()))
+	}
 
 	return
 }
 
-func httpPost(params url.Values) (body []byte){
-    var JSON bytes.Buffer
+func httpPost(params url.Values) (body []byte) {
+	var JSON bytes.Buffer
 
-    params.Add("api_sig", MD5Hash(params))
+	params.Add("api_sig", MD5Hash(params))
 	params.Add("format", "json")
 
-    uri := UriApiSecBase
+	uri := UriApiSecBase
 
 	client := &http.Client{}
 	req, err := http.NewRequest("POST", uri, strings.NewReader(params.Encode()))
@@ -101,18 +101,18 @@ func httpPost(params url.Values) (body []byte){
 		return
 	}
 
-    if debug {
-        logDebug.Printf("Status Code : %v\n", res.StatusCode)
-        logDebug.Printf("Status : %s\n", res.Status)
-    }
+	if debug {
+		logDebug.Printf("Status Code : %v\n", res.StatusCode)
+		logDebug.Printf("Status : %s\n", res.Status)
+	}
 
 	body, err = ioutil.ReadAll(res.Body)
 
-    if debug {
-        json.Indent(&JSON, body, "", "\t")
-        logDebug.Printf("Body : %d\n", len(JSON.Bytes()))
-        logDebug.Printf("Body : %s\n", string(JSON.Bytes()))
-    }
+	if debug {
+		json.Indent(&JSON, body, "", "\t")
+		logDebug.Printf("Body : %d\n", len(JSON.Bytes()))
+		logDebug.Printf("Body : %s\n", string(JSON.Bytes()))
+	}
 
 	return
 }
