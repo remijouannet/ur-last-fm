@@ -2,9 +2,9 @@ package main
 
 import (
 	"flag"
+	orm "github.com/remijouannet/ur-last-fm/orm"
 	"log"
 	"os"
-    orm "github.com/remijouannet/ur-last-fm/orm"
 )
 
 var (
@@ -35,7 +35,7 @@ func main() {
 
 	configFile(config)
 
-    orm.Test1()
+	orm.Init()
 
 	authGetMobileSession(P{"username": username, "password": password})
 	getAllRecentTracks("hoodlums36")
