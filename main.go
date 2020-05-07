@@ -4,6 +4,7 @@ import (
 	"flag"
 	"log"
 	"os"
+    orm "github.com/remijouannet/ur-last-fm/orm"
 )
 
 var (
@@ -33,6 +34,8 @@ func main() {
 	flag.Parse()
 
 	configFile(config)
+
+    orm.Test1()
 
 	authGetMobileSession(P{"username": username, "password": password})
 	getAllRecentTracks("hoodlums36")
