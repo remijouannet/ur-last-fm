@@ -2,7 +2,7 @@ package main
 
 import (
 	"flag"
-    "fmt"
+	"fmt"
 	database "github.com/remijouannet/ur-last-fm/db"
 	"github.com/remijouannet/ur-last-fm/log"
 )
@@ -13,7 +13,7 @@ var (
 	username string
 	password string
 	conn     string
-    db *database.Database
+	db       *database.Database
 	debug    bool
 )
 
@@ -35,10 +35,9 @@ func main() {
 
 	log.Init(debug)
 
-    db = database.DbInit(conn, debug)
+	db = database.DbInit(conn, debug)
 
-    log.Info(fmt.Sprintf("DataBase name is %s\n", db.GetDatabaseName()))
-
+	log.Info(fmt.Sprintf("DataBase name is %s\n", db.GetDatabaseName()))
 
 	authGetMobileSession(P{"username": username, "password": password})
 	//getAllRecentTracks("hoodlums36")

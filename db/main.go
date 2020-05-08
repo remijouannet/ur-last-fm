@@ -8,13 +8,12 @@ import (
 	_ "github.com/jackc/pgx/v4/stdlib"
 )
 
-
 type Database struct {
-    Db *sql.DB
-    DatabaseName string
+	Db           *sql.DB
+	DatabaseName string
 }
 
-func DbInit(conn string, debug bool) (*Database) {
+func DbInit(conn string, debug bool) *Database {
 	log.Init(debug)
 
 	NewDb, err := sql.Open("pgx", conn)
@@ -29,27 +28,27 @@ func DbInit(conn string, debug bool) (*Database) {
 
 	log.Info("Connection sucessful to Postgresql\n")
 
-    return &Database{ Db : NewDb}
+	return &Database{Db: NewDb}
 }
 
-func (db *Database) GetDatabaseName() (string){
-    if db.DatabaseName != "" {
-        log.Info(fmt.Sprintf("DataBase name is %s\n", db.DatabaseName))
-        return db.DatabaseName
-    }
+func (db *Database) GetDatabaseName() string {
+	if db.DatabaseName != "" {
+		log.Info(fmt.Sprintf("DataBase name is %s\n", db.DatabaseName))
+		return db.DatabaseName
+	}
 
-    rows, err := db.Db.Query("SELECT current_database();")
-    if err != nil {
+	rows, err := db.Db.Query("SELECT current_database();")
+	if err != nil {
 		log.Fatal(fmt.Sprint(err))
 	}
-    defer rows.Close()
+	defer rows.Close()
 
-    rows.Next()
+	rows.Next()
 
-    if err := rows.Scan(&db.DatabaseName); err != nil {
-        log.Fatal(fmt.Sprint(err))
-    }
+	if err := rows.Scan(&db.DatabaseName); err != nil {
+		log.Fatal(fmt.Sprint(err))
+	}
 
-    log.Info(fmt.Sprintf("DataBase name is %s\n", db.DatabaseName))
-    return db.DatabaseName
+	log.Info(fmt.Sprintf("DataBase name is %s\n", db.DatabaseName))
+	return db.DatabaseName
 }
