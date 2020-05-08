@@ -8,20 +8,48 @@ import (
 	_ "github.com/jackc/pgx/v4/stdlib"
 )
 
-func DbInit(conn string) (db *sql.DB, debug bool) {
+
+type Database struct {
+    Db *sql.DB
+    DatabaseName string
+}
+
+func DbInit(conn string, debug bool) (*Database) {
 	log.Init(debug)
 
-	db, err := sql.Open("pgx", conn)
+	NewDb, err := sql.Open("pgx", conn)
 	if err != nil {
 		log.Fatal(fmt.Sprint(err))
 	}
 
-	err = db.Ping()
+	err = NewDb.Ping()
 	if err != nil {
 		log.Fatal(fmt.Sprint(err))
 	}
 
 	log.Info("Connection sucessful to Postgresql\n")
 
-	return
+    return &Database{ Db : NewDb}
+}
+
+func (db *Database) GetDatabaseName() (string){
+    if db.DatabaseName != "" {
+        log.Info(fmt.Sprintf("DataBase name is %s\n", db.DatabaseName))
+        return db.DatabaseName
+    }
+
+    rows, err := db.Db.Query("SELECT current_database();")
+    if err != nil {
+		log.Fatal(fmt.Sprint(err))
+	}
+    defer rows.Close()
+
+    rows.Next()
+
+    if err := rows.Scan(&db.DatabaseName); err != nil {
+        log.Fatal(fmt.Sprint(err))
+    }
+
+    log.Info(fmt.Sprintf("DataBase name is %s\n", db.DatabaseName))
+    return db.DatabaseName
 }
