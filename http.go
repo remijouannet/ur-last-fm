@@ -5,11 +5,14 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"sort"
 	"strings"
+
+	log "github.com/remijouannet/ur-last-fm/log"
 )
 
 const (
@@ -29,9 +32,7 @@ func MD5Hash(urlParams url.Values) string {
 
 	for _, k := range keys {
 		text = text + k + urlParams[k][0]
-		if debug {
-			logDebug.Printf("Param: %s %s\n", k, urlParams[k][0])
-		}
+		log.Debug(fmt.Sprintf("Param: %s %s\n", k, urlParams[k][0]))
 	}
 
 	text = text + secret
@@ -46,10 +47,8 @@ func httpGet(params url.Values) (body []byte) {
 
 	params.Add("format", "json")
 
-	if debug {
-		for key, param := range params {
-			logDebug.Printf("Param: %s %s\n", key, param[0])
-		}
+	for key, param := range params {
+		log.Debug(fmt.Sprintf("Param: %s %s\n", key, param[0]))
 	}
 
 	p := params.Encode()
@@ -66,18 +65,14 @@ func httpGet(params url.Values) (body []byte) {
 		return
 	}
 
-	if debug {
-		logDebug.Printf("Status Code : %v\n", res.StatusCode)
-		logDebug.Printf("Status : %s\n", res.Status)
-	}
+	log.Debug(fmt.Sprintf("Status Code : %v\n", res.StatusCode))
+	log.Debug(fmt.Sprintf("Status : %s\n", res.Status))
 
 	body, err = ioutil.ReadAll(res.Body)
 
-	if debug {
-		json.Indent(&JSON, body, "", "\t")
-		logDebug.Printf("Body : %d\n", len(JSON.Bytes()))
-		logDebug.Printf("Body : %s\n", string(JSON.Bytes()))
-	}
+	json.Indent(&JSON, body, "", "\t")
+	log.Debug(fmt.Sprintf("Body : %d\n", len(JSON.Bytes())))
+	log.Debug(fmt.Sprintf("Body : %s\n", string(JSON.Bytes())))
 
 	return
 }
@@ -101,18 +96,14 @@ func httpPost(params url.Values) (body []byte) {
 		return
 	}
 
-	if debug {
-		logDebug.Printf("Status Code : %v\n", res.StatusCode)
-		logDebug.Printf("Status : %s\n", res.Status)
-	}
+	log.Debug(fmt.Sprintf("Status Code : %v\n", res.StatusCode))
+	log.Debug(fmt.Sprintf("Status : %s\n", res.Status))
 
 	body, err = ioutil.ReadAll(res.Body)
 
-	if debug {
-		json.Indent(&JSON, body, "", "\t")
-		logDebug.Printf("Body : %d\n", len(JSON.Bytes()))
-		logDebug.Printf("Body : %s\n", string(JSON.Bytes()))
-	}
+	json.Indent(&JSON, body, "", "\t")
+	log.Debug(fmt.Sprintf("Body : %d\n", len(JSON.Bytes())))
+	log.Debug(fmt.Sprintf("Body : %s\n", string(JSON.Bytes())))
 
 	return
 }

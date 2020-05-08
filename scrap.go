@@ -2,6 +2,8 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
+	log "github.com/remijouannet/ur-last-fm/log"
 	"strconv"
 )
 
@@ -21,7 +23,7 @@ func getAllRecentTracks(user string) {
 	recenttracks = result["recenttracks"].(map[string]interface{})
 
 	total, _ := strconv.Atoi(recenttracks["@attr"].(map[string]interface{})["totalPages"].(string))
-	logInfo.Printf("totalPages: %d\n", total)
+	log.Info(fmt.Sprintf("totalPages: %d\n", total))
 
 	for i := 1; i <= total; i++ {
 		body = userGetRecentTracks(P{"user": user, "limit": "200", "page": strconv.Itoa(i)})
@@ -39,7 +41,7 @@ func getAllRecentTracks(user string) {
 			artist = track["artist"].(map[string]interface{})
 			album = track["album"].(map[string]interface{})
 
-			logInfo.Printf("track : %s %s %s\n", date["#text"], artist["#text"], album["#text"])
+			log.Info(fmt.Sprintf("track : %s %s %s\n", date["#text"], artist["#text"], album["#text"]))
 		}
 	}
 }

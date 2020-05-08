@@ -1,15 +1,15 @@
 package main
 
 import (
+	log "github.com/remijouannet/ur-last-fm/log"
 	"net/url"
 )
 
 type P map[string]string
 
 func authGetMobileSession(params P) []byte {
-	if debug {
-		logDebug.Print("Method : authGetMobileSession\n")
-	}
+	log.Debug("Method : authGetMobileSession\n")
+
 	urlParams := url.Values{}
 	urlParams.Add("method", "auth.getMobileSession")
 	urlParams.Add("api_key", token)
@@ -21,9 +21,7 @@ func authGetMobileSession(params P) []byte {
 }
 
 func userGetInfo(params P) []byte {
-	if debug {
-		logDebug.Print("Method : userGetInfo\n")
-	}
+	log.Debug("Method : userGetInfo\n")
 
 	urlParams := url.Values{}
 	urlParams.Add("method", "user.getInfo")
@@ -36,9 +34,7 @@ func userGetInfo(params P) []byte {
 }
 
 func userGetRecentTracks(params P) []byte {
-	if debug {
-		logDebug.Print("Method : userGetRecentTracks\n")
-	}
+	log.Debug("Method : userGetRecentTracks\n")
 
 	if _, ok := params["limit"]; ok == false {
 		params["limit"] = "5"
