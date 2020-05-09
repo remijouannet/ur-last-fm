@@ -26,13 +26,13 @@ pkg: fmt
 bin: fmt
 	mkdir -p ./bin
 	echo "==> Building..."
-	CGO_ENABLED=0 gox -os=$(GOOS) -arch=$(GOARCH) -output ./bin/ur-last-fm_$(VERSION) .
+	CGO_ENABLED=0 go build -o ./bin/ur-last-fm_$(VERSION) .
 	chmod 777 ./bin/ur-last-fm_$(VERSION)
 
 bin-darwin: fmt
 	mkdir -p ./bin
 	echo "==> Building..."
-	CGO_ENABLED=0 gox -os=darwin -arch=amd64 -output ./bin/ur-last-fm_$(VERSION) .
+	CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o ./bin/ur-last-fm_$(VERSION) .
 	chmod 777 ./bin/ur-last-fm_$(VERSION)
 
 fmt:

@@ -3,7 +3,7 @@ package db
 import (
 	"database/sql"
 	"fmt"
-	log "github.com/remijouannet/ur-last-fm/log"
+	"github.com/remijouannet/ur-last-fm/log"
 
 	_ "github.com/jackc/pgx/v4/stdlib"
 )

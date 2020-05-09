@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	log "github.com/remijouannet/ur-last-fm/log"
+	"github.com/remijouannet/ur-last-fm/log"
 	"io/ioutil"
 	"os/user"
 	"path/filepath"

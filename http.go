@@ -12,7 +12,7 @@ import (
 	"sort"
 	"strings"
 
-	log "github.com/remijouannet/ur-last-fm/log"
+	"github.com/remijouannet/ur-last-fm/log"
 )
 
 const (
