@@ -52,3 +52,7 @@ func (db *Database) GetDatabaseName() string {
 	log.Debug(fmt.Sprintf("DataBase name is %s\n", db.DatabaseName))
 	return db.DatabaseName
 }
+
+func Create(table *CreateTable) {
+	return
+}
