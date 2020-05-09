@@ -1,11 +1,21 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	log "github.com/remijouannet/ur-last-fm/log"
 	"strconv"
 )
+
+func getUserInfo(user string) {
+	var body []byte
+	var JSON bytes.Buffer
+
+	body = userGetInfo(P{"username": user})
+	json.Indent(&JSON, body, "", "\t")
+	log.Info(fmt.Sprintf("Body : %s\n", JSON.String()))
+}
 
 func getAllRecentTracks(user string) {
 	var result map[string]interface{}

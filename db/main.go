@@ -49,6 +49,6 @@ func (db *Database) GetDatabaseName() string {
 		log.Fatal(fmt.Sprint(err))
 	}
 
-	log.Info(fmt.Sprintf("DataBase name is %s\n", db.DatabaseName))
+	log.Debug(fmt.Sprintf("DataBase name is %s\n", db.DatabaseName))
 	return db.DatabaseName
 }

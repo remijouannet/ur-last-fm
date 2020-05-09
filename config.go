@@ -15,6 +15,7 @@ type Config struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
 	Conn     string `json:"conn"`
+	Scrap    string `json:"scrap"`
 	Debug    bool   `json:"debug"`
 }
 
@@ -55,6 +56,9 @@ func configFile(file string) {
 	}
 	if conn == "" && config.Conn != "" {
 		conn = config.Conn
+	}
+	if scrap == "" && config.Scrap != "" {
+		scrap = config.Scrap
 	}
 	if !debug && config.Debug {
 		debug = config.Debug
