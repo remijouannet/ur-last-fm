@@ -36,7 +36,7 @@ func userGetInfo(params P) []byte {
 func userGetRecentTracks(params P) []byte {
 	log.Debug("Method : userGetRecentTracks\n")
 
-	if _, ok := params["limit"]; ok == false {
+	if _, ok := params["limit"]; !ok {
 		params["limit"] = "5"
 	}
 

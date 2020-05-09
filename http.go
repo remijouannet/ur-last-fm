@@ -68,11 +68,11 @@ func httpGet(params url.Values) (body []byte) {
 	log.Debug(fmt.Sprintf("Status Code : %v\n", res.StatusCode))
 	log.Debug(fmt.Sprintf("Status : %s\n", res.Status))
 
-	body, err = ioutil.ReadAll(res.Body)
+	body, _ = ioutil.ReadAll(res.Body)
 
 	json.Indent(&JSON, body, "", "\t")
 	log.Debug(fmt.Sprintf("Body : %d\n", len(JSON.Bytes())))
-	log.Debug(fmt.Sprintf("Body : %s\n", string(JSON.Bytes())))
+	log.Debug(fmt.Sprintf("Body : %s\n", JSON.String()))
 
 	return
 }
@@ -99,11 +99,11 @@ func httpPost(params url.Values) (body []byte) {
 	log.Debug(fmt.Sprintf("Status Code : %v\n", res.StatusCode))
 	log.Debug(fmt.Sprintf("Status : %s\n", res.Status))
 
-	body, err = ioutil.ReadAll(res.Body)
+	body, _ = ioutil.ReadAll(res.Body)
 
 	json.Indent(&JSON, body, "", "\t")
 	log.Debug(fmt.Sprintf("Body : %d\n", len(JSON.Bytes())))
-	log.Debug(fmt.Sprintf("Body : %s\n", string(JSON.Bytes())))
+	log.Debug(fmt.Sprintf("Body : %s\n", JSON.String()))
 
 	return
 }

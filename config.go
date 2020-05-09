@@ -34,7 +34,12 @@ func configFile(file string) {
 		log.Error(fmt.Sprintf("Error opening the config file: %s \n", err))
 		return
 	}
-	json.Unmarshal([]byte(jsonFile), &config)
+
+	err = json.Unmarshal([]byte(jsonFile), &config)
+	if err != nil {
+		log.Fatal(fmt.Sprintf("Error reading the JSON: %s \n", err))
+		return
+	}
 
 	if token == "" && config.Token != "" {
 		token = config.Token
@@ -51,7 +56,7 @@ func configFile(file string) {
 	if conn == "" && config.Conn != "" {
 		conn = config.Conn
 	}
-	if debug == false && config.Debug != false {
+	if !debug && config.Debug {
 		debug = config.Debug
 	}
 }
