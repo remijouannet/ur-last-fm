@@ -37,10 +37,7 @@ func configFile(file string) {
 	}
 
 	err = json.Unmarshal([]byte(jsonFile), &config)
-	if err != nil {
-		log.Fatal(fmt.Sprintf("Error reading the JSON: %s \n", err))
-		return
-	}
+	log.FatalIf(fmt.Sprintf("Error reading the JSON: %s \n", err), err)
 
 	if token == "" && config.Token != "" {
 		token = config.Token

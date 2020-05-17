@@ -36,14 +36,33 @@ func Debug(msg string) {
 		loggerDebug.Print(msg)
 	}
 }
+
 func Error(msg string) {
 	loggerError.Print(msg)
+}
+
+func ErrorIf(msg string, err error) {
+	if err != nil {
+		Error(msg)
+	}
 }
 
 func Fatal(msg string) {
 	loggerFatal.Fatal(msg)
 }
 
+func FatalIf(msg string, err error) {
+	if err != nil {
+		Fatal(msg)
+	}
+}
+
 func Panic(msg string) {
 	loggerPanic.Panic(msg)
+}
+
+func PanicIf(err error) {
+	if err != nil {
+		Panic(err.Error())
+	}
 }
