@@ -36,6 +36,8 @@ func main() {
 	configFile(config)
 	log.Init(debug)
 
+	defer closeDb()
+
 	initDb(conn)
 
 	scrap_split := strings.Split(scrap, ":")
