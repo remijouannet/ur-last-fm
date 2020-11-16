@@ -9,14 +9,15 @@ import (
 )
 
 type User struct {
-	Id       int64
-	Title    string
-	AuthorId int64
-	Author   *User `pg:"rel:has-one"`
+	name       string
+	url        string
+	country    string
+	registered int64
+	//body map
 }
 
 func (u User) String() string {
-	return fmt.Sprintf("User<%d %s %s>", u.Id, u.Title, u.Author)
+	return fmt.Sprintf("User<%s %s %s %d>", u.name, u.url, u.country, u.registered)
 }
 
 func initDb(conn string) {
