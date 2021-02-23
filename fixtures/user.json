@@ -1,0 +1,37 @@
+{
+	"user": {
+		"playlists": "0",
+		"playcount": "115191",
+		"gender": "n",
+		"name": "hoodlums36",
+		"subscriber": "1",
+		"url": "https:\/\/www.last.fm\/user\/hoodlums36",
+		"country": "France",
+		"image": [
+			{
+				"size": "small",
+				"#text": "https:\/\/lastfm.freetls.fastly.net\/i\/u\/34s\/8611201f78134220c253a73e6f3c8fc9.png"
+			},
+			{
+				"size": "medium",
+				"#text": "https:\/\/lastfm.freetls.fastly.net\/i\/u\/64s\/8611201f78134220c253a73e6f3c8fc9.png"
+			},
+			{
+				"size": "large",
+				"#text": "https:\/\/lastfm.freetls.fastly.net\/i\/u\/174s\/8611201f78134220c253a73e6f3c8fc9.png"
+			},
+			{
+				"size": "extralarge",
+				"#text": "https:\/\/lastfm.freetls.fastly.net\/i\/u\/300x300\/8611201f78134220c253a73e6f3c8fc9.png"
+			}
+		],
+		"registered": {
+			"unixtime": "1291906256",
+			"#text": 1291906256
+		},
+		"type": "subscriber",
+		"age": "0",
+		"bootstrap": "0",
+		"realname": "Rémi"
+	}
+}

@@ -1,0 +1,36 @@
+{
+    "album": {
+        "#text": "TRON: Legacy - The Complete Edition (Original Motion Picture Soundtrack)",
+        "mbid": ""
+    },
+    "artist": {
+        "#text": "Daft Punk",
+        "mbid": ""
+    },
+    "date": {
+        "#text": "23 Feb 2021, 19:32",
+        "uts": "1614108761"
+    },
+    "image": [
+        {
+            "#text": "https://lastfm.freetls.fastly.net/i/u/34s/6bf3e1cd10aad29f0f3da398f22d3a23.jpg",
+            "size": "small"
+        },
+        {
+            "#text": "https://lastfm.freetls.fastly.net/i/u/64s/6bf3e1cd10aad29f0f3da398f22d3a23.jpg",
+            "size": "medium"
+        },
+        {
+            "#text": "https://lastfm.freetls.fastly.net/i/u/174s/6bf3e1cd10aad29f0f3da398f22d3a23.jpg",
+            "size": "large"
+        },
+        {
+            "#text": "https://lastfm.freetls.fastly.net/i/u/300x300/6bf3e1cd10aad29f0f3da398f22d3a23.jpg",
+            "size": "extralarge"
+        }
+    ],
+    "mbid": "",
+    "name": "Outlands, Part II",
+    "streamable": "0",
+    "url": "https://www.last.fm/music/Daft+Punk/_/Outlands,+Part+II"
+}

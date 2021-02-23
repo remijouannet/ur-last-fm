@@ -47,7 +47,7 @@ func main() {
 
 	switch scrap_split[0] {
 	case "getUserInfo":
-		getUserInfo(scrap_params[0])
+		getUserInfo(db, scrap_params[0])
 	case "getAllRecentTracks":
 		getAllRecentTracks(scrap_params[0])
 	default:
