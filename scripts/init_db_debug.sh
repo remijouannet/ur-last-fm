@@ -1,5 +1,7 @@
 #!/bin/bash
 
+docker ps -q -f name=ur-last-fm-postgres && docker rm --force --volumes ur-last-fm-postgres
+
 container_id=$(docker run --name ur-last-fm-postgres -p 8081:5432 -e POSTGRES_PASSWORD=password -d postgres)
 
 initdb=false
