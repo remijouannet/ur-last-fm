@@ -15,28 +15,20 @@ func initDb(conn string) {
 	log.PanicIf(err)
 
 	db = pg.Connect(opts)
-	db.AddQueryHook(pgdebug.DebugHook{Verbose: true})
+	if debug {
+		db.AddQueryHook(pgdebug.DebugHook{Verbose: true})
+	}
 
 	log.Info(fmt.Sprintf("create schema User connection\n"))
 
-	err = db.Model((*User)(nil)).DropTable(&orm.DropTableOptions{IfExists: true})
-	if err != nil {
-		panic(err)
-	}
-
-	err = db.Model((*User)(nil)).CreateTable(nil)
+	err = db.Model((*User)(nil)).CreateTable(&orm.CreateTableOptions{IfNotExists: true})
 	if err != nil {
 		panic(err)
 	}
 
 	log.Info(fmt.Sprintf("create schema Track connection\n"))
 
-	err = db.Model((*Track)(nil)).DropTable(&orm.DropTableOptions{IfExists: true})
-	if err != nil {
-		panic(err)
-	}
-
-	err = db.Model((*Track)(nil)).CreateTable(nil)
+	err = db.Model((*Track)(nil)).CreateTable(&orm.CreateTableOptions{IfNotExists: true})
 	if err != nil {
 		panic(err)
 	}

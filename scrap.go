@@ -25,7 +25,7 @@ func getUserInfo(db *pg.DB, user string) {
 		Country: userjson.User.Country,
 		Body:    userjson,
 	}
-	_, err := db.Model(user1).Insert()
+	_, err := db.Model(user1).OnConflict("DO NOTHING").Insert()
 	if err != nil {
 		panic(err)
 	}
@@ -47,7 +47,7 @@ func getAllRecentTracks(user string) {
 		json.Unmarshal([]byte(body), &result)
 
 		for _, track := range result.Recenttracks.Track {
-			log.Info(fmt.Sprintf("track : %s %s %s %s\n", track.Date.Text, track.Artist.Text, track.Album.Text, track.Name))
+			log.Info(fmt.Sprintf("track : %s %s - %s - %s\n", track.Date.Text, track.Artist.Text, track.Album.Text, track.Name))
 			uts, _ = strconv.Atoi(track.Date.Uts)
 			track1 := &Track{
 				Uts:    int64(uts),

@@ -42,7 +42,7 @@ type Track struct {
 	Uts    int64 `pg:",pk"`
 	Artist string
 	Album  string
-	Name   string
+	Name   string `pg:",pk"`
 	Body   *TrackJson
 }
 
