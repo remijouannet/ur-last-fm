@@ -1,7 +1,7 @@
 ur-last-fm
 ==========
 
-little cli tools to push some from your last-fm account to postgresql
+little cli tools to push data from your last-fm account to postgresql
 
 
 How to Use
