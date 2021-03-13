@@ -15,6 +15,7 @@ var (
 	password string
 	conn     string
 	scrap    string
+	conflict string
 	db       *pg.DB
 	debug    bool
 )
@@ -29,6 +30,7 @@ func main() {
 	flag.StringVar(&password, "password", "", "specify a password")
 	flag.StringVar(&conn, "conn", "", "specify a conn string to connect to Postgresql")
 	flag.StringVar(&scrap, "scrap", "", "specify a scrap action")
+	flag.StringVar(&conflict, "conflict", "stop", "specify an action on conflit in the database: continue, stop")
 	flag.StringVar(&config, "config", "", "config file")
 	flag.BoolVar(&debug, "debug", false, "debug")
 	flag.Parse()
@@ -47,9 +49,9 @@ func main() {
 
 	switch scrap_split[0] {
 	case "getUserInfo":
-		getUserInfo(db, scrap_params[0])
+		getUserInfo(db, scrap_params[0], conflict)
 	case "getAllRecentTracks":
-		getAllRecentTracks(scrap_params[0])
+		getAllRecentTracks(scrap_params[0], conflict)
 	default:
 		log.Error(fmt.Sprintf("scrap action not found %s.\n", scrap_split[0]))
 	}

@@ -1,17 +1,17 @@
 package main
 
-import (
-	"fmt"
-)
-
 type User struct {
 	Name    string `pg:",pk"`
 	Country string
 	Body    *UserJson
 }
 
-func (u User) String() string {
-	return fmt.Sprintf("User<%s %s>", u.Name, u.Country)
+type Track struct {
+	Uts    int64 `pg:",pk"`
+	Artist string
+	Album  string
+	Name   string `pg:",pk"`
+	Body   *TrackJson
 }
 
 type UserJson struct {
@@ -36,18 +36,6 @@ type UserJson struct {
 		Bootstrap string `json:"bootstrap"`
 		Realname  string `json:"realname"`
 	} `json:"user"`
-}
-
-type Track struct {
-	Uts    int64 `pg:",pk"`
-	Artist string
-	Album  string
-	Name   string `pg:",pk"`
-	Body   *TrackJson
-}
-
-func (t Track) String() string {
-	return fmt.Sprintf("Track<%d %s %s %s>", t.Uts, t.Artist, t.Album, t.Name)
 }
 
 type RecenttracksJson struct {

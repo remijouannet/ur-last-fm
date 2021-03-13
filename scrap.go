@@ -9,7 +9,7 @@ import (
 	"strconv"
 )
 
-func getUserInfo(db *pg.DB, user string) {
+func getUserInfo(db *pg.DB, user string, conflict string) {
 	var userjson *UserJson
 	var body []byte
 	var JSON bytes.Buffer
@@ -31,7 +31,7 @@ func getUserInfo(db *pg.DB, user string) {
 	}
 }
 
-func getAllRecentTracks(user string) {
+func getAllRecentTracks(user string, conflict string) {
 	var result RecenttracksJson
 	var body []byte
 	var uts int
@@ -42,6 +42,7 @@ func getAllRecentTracks(user string) {
 	total, _ := strconv.Atoi(result.Recenttracks.Attr.TotalPages)
 	log.Info(fmt.Sprintf("totalPages: %d\n", total))
 
+	stop := false
 	for i := 1; i <= total; i++ {
 		body = userGetRecentTracks(P{"user": user, "limit": "200", "page": strconv.Itoa(i)})
 		json.Unmarshal([]byte(body), &result)
@@ -56,10 +57,24 @@ func getAllRecentTracks(user string) {
 				Name:   track.Name,
 				Body:   &track,
 			}
-			_, err := db.Model(track1).Insert()
+			res, err := db.Model(track1).OnConflict("DO NOTHING").Insert()
 			if err != nil {
 				panic(err)
 			}
+			if res.RowsAffected() == 0 {
+				log.Info(fmt.Sprintf("track : %s %s - %s - %s already present in database\n",
+					track.Date.Text,
+					track.Artist.Text,
+					track.Album.Text,
+					track.Name))
+				if conflict == "stop" {
+					stop = true
+					break
+				}
+			}
+		}
+		if stop {
+			break
 		}
 	}
 }
