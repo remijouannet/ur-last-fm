@@ -3,10 +3,11 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/remijouannet/ur-last-fm/log"
 	"io/ioutil"
 	"os/user"
 	"path/filepath"
+
+	"github.com/remijouannet/ur-last-fm/log"
 )
 
 type Config struct {

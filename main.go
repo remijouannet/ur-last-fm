@@ -3,9 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
+	"os"
+	"strings"
+
 	"github.com/go-pg/pg/v10"
 	"github.com/remijouannet/ur-last-fm/log"
-	"strings"
 )
 
 var (
@@ -22,7 +24,7 @@ var (
 
 func main() {
 	var config string
-	log.Init(false)
+	log.Init(false, os.Stdout)
 
 	flag.StringVar(&token, "token", "", "specify a token for the api")
 	flag.StringVar(&secret, "secret", "", "specify a secret for the api")
@@ -36,7 +38,7 @@ func main() {
 	flag.Parse()
 
 	configFile(config)
-	log.Init(debug)
+	log.Init(debug, os.Stdout)
 
 	defer closeDb()
 

@@ -1,8 +1,8 @@
 package log
 
 import (
+	"io"
 	"log"
-	"os"
 )
 
 var (
@@ -14,17 +14,17 @@ var (
 	debug       bool
 )
 
-func Init(dbg bool) {
+func Init(dbg bool, out io.Writer) {
 
 	if dbg {
 		debug = true
 	}
 
-	loggerInfo = log.New(os.Stdout, "INFO:", log.Ldate|log.Ltime)
-	loggerDebug = log.New(os.Stdout, "DEBUG:", log.Ldate|log.Ltime)
-	loggerError = log.New(os.Stdout, "ERROR:", log.Ldate|log.Ltime)
-	loggerFatal = log.New(os.Stdout, "FATAL:", log.Ldate|log.Ltime)
-	loggerPanic = log.New(os.Stdout, "PANIC:", log.Ldate|log.Ltime)
+	loggerInfo = log.New(out, "INFO:", log.Ldate|log.Ltime)
+	loggerDebug = log.New(out, "DEBUG:", log.Ldate|log.Ltime)
+	loggerError = log.New(out, "ERROR:", log.Ldate|log.Ltime)
+	loggerFatal = log.New(out, "FATAL:", log.Ldate|log.Ltime)
+	loggerPanic = log.New(out, "PANIC:", log.Ldate|log.Ltime)
 }
 
 func Info(msg string) {
